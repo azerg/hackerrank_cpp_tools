@@ -1,5 +1,11 @@
 #pragma once
+#include "includes.h"
 
+double DistanceBetween(const Point& pt1, const Point& pt2);
+bool LineCollision(const Point& A1, const Point& A2, const Point& B1, const Point& B2, double* out = 0);
+bool GetCrossingPoint(const Point& A1, const Point& A2, const Point& B1, const Point& B2, Point& out);
+
+//======================================================================================================
 
 struct Point
 {
@@ -37,13 +43,20 @@ struct Point
   }
 };
 
-inline double Dot(const Point& a, const Point& b) { return (a.x*b.x) + (a.y*b.y); }
-inline double PerpDot(const Point& a, const Point& b) { return (a.y*b.x) - (a.x*b.y); }
+//======================================================================================================
+
+double DistanceBetween(const Point& pt1, const Point& pt2)
+{
+  return ceil(sqrt(pow(pt1.x - pt2.x, 2) + pow(pt1.y - pt2.y, 2)));
+}
 
 bool LineCollision(const Point& A1, const Point& A2,
   const Point& B1, const Point& B2,
   double* out = 0)
 {
+  auto Dot = [](const Point& a, const Point& b) { return (a.x*b.x) + (a.y*b.y); };
+  auto PerpDot = [](const Point& a, const Point& b) { return (a.y*b.x) - (a.x*b.y); };
+
   Point a(A2 - A1);
   Point b(B2 - B1);
 
