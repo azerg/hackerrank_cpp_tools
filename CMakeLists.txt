@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin)
 
+# Options. Turn on with 'cmake -Dmyvarname=ON'.
+option(test "Build all tests." OFF) # Makes boolean 'test' available.
+
 project (HackerRankCommons)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -18,3 +21,12 @@ message ("-------------")
 
 add_subdirectory (util)
 add_subdirectory (Test)
+
+
+################################
+# Testing
+################################
+if (test)
+  enable_testing()
+  add_test(NAME PointsTest COMMAND test)
+endif()
